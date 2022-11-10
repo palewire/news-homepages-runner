@@ -56,7 +56,7 @@ jobs:
 
       - id: archive-hyperlinks
         name: Archive hyperlinks
-        run: pipenv run newshomepages-archive us-right-wing --bundle -i _dist/;
+        run: pipenv run newshomepages-archive us-right-wing --bundle -i _dist/ --verbose --wait=10;
         shell: bash
         env:
           IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
