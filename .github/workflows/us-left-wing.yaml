@@ -8,7 +8,7 @@ on:
 jobs:
   archive-bundle:
     name: Archive bundle
-    uses: .github/composites/archive-bundle.yml
+    uses: .github/composites/archive-bundle.yml@main
     with:
       bundle: us-left-wing
     secrets: inherit
