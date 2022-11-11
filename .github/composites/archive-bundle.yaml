@@ -1,0 +1,314 @@
+name: Archive bundle
+
+on:
+  workflow_call:
+    inputs:
+      bundle:
+        description: The slug of the bundle to archive
+        required: true
+        type: string
+
+jobs:
+  sources:
+    name: Sources
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
+
+      - id: get-site-list
+        uses: ./.github/actions/batch
+        with:
+          command: sites-by-bundle ${{ inputs.bundle }}
+    outputs:
+      site-list: ${{ steps.get-site-list.outputs.site-list }}
+
+  # jpg:
+  #   name: JPG (Cropped)
+  #   runs-on: ubuntu-20.04
+  #   timeout-minutes: 15
+  #   needs: sources
+  #   continue-on-error: true
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       source: ${{ fromJson(needs.sources.outputs.site-list) }}
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: screenshot
+  #       name: Screenshot
+  #       uses: ./.github/actions/screenshot
+  #       with:
+  #         source: ${{ matrix.source }}
+
+  # jpg-full:
+  #   name: JPG (Full screen)
+  #   runs-on: ubuntu-20.04
+  #   timeout-minutes: 15
+  #   needs: sources
+  #   continue-on-error: true
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       source: ${{ fromJson(needs.sources.outputs.site-list) }}
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: screenshot
+  #       name: Screenshot
+  #       uses: ./.github/actions/screenshot
+  #       with:
+  #         source: "${{ matrix.source }} --full-page"
+  #         artifact: full-page-screenshots
+
+  # accessibility:
+  #   name: a11y
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   needs: sources
+  #   continue-on-error: true
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       source: ${{ fromJson(needs.sources.outputs.site-list) }}
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: save-page
+  #       name: Save the accessibility tree
+  #       uses: ./.github/actions/accessibility
+  #       with:
+  #         source: ${{ matrix.source }}
+
+  # hyperlinks:
+  #   name: Hyperlinks
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   needs: sources
+  #   continue-on-error: true
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       source: ${{ fromJson(needs.sources.outputs.site-list) }}
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: save-page
+  #       name: Save hyperlinks
+  #       uses: ./.github/actions/hyperlinks
+  #       with:
+  #         source: ${{ matrix.source }}
+
+  # wayback:
+  #   name: Wayback Machine
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   needs: sources
+  #   continue-on-error: true
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       source: ${{ fromJson(needs.sources.outputs.site-list) }}
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: save-page
+  #       name: Save in Wayback Machine
+  #       uses: ./.github/actions/wayback
+  #       with:
+  #         source: ${{ matrix.source }}
+  #         access-key: ${{ secrets.IA_ACCESS_KEY }}
+  #         secret-key: ${{ secrets.IA_SECRET_KEY }}
+
+  # lighthouse:
+  #   name: Lighthouse audit
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   needs: sources
+  #   continue-on-error: true
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       source: ${{ fromJson(needs.sources.outputs.site-list) }}
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: audit
+  #       name: Audit
+  #       uses: ./.github/actions/lighthouse
+  #       with:
+  #         source: ${{ matrix.source }}
+
+  # html:
+  #   name: HTML
+  #   runs-on: ubuntu-20.04
+  #   timeout-minutes: 15
+  #   needs: sources
+  #   continue-on-error: true
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       source: ${{ fromJson(needs.sources.outputs.site-list) }}
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: install
+  #       name: Install Python dependencies
+  #       uses: ./.github/actions/install
+
+  #     - id: cache-playwright
+  #       name: Cache Playwright browsers
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ~/.cache/ms-playwright/
+  #         key: ${{ runner.os }}-browsers
+
+  #     - id: install-playwright
+  #       name: Install Playwright dependencies
+  #       run: pipenv run playwright install --with-deps chromium
+  #       shell: bash
+
+  #     - id: html
+  #       name: Fetch HTML
+  #       run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run python -m newshomepages.html ${{ matrix.source }} -o _dist
+  #       shell: bash
+  #       env:
+  #         DEBUG: 'pw:api'
+  #         CHROME_IPC_LOGGING: 1
+
+  #     - id: save
+  #       name: Save artifact
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: html
+  #         path: _dist
+  #         if-no-files-found: error
+
+  # archive:
+  #   name: Post to archive.org
+  #   needs: [jpg,accessibility,hyperlinks,wayback,lighthouse,sources]
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       source: ${{ fromJson(needs.sources.outputs.site-list) }}
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: archive
+  #       name: Post
+  #       uses: ./.github/actions/archive
+  #       with:
+  #         source: ${{ matrix.source }}
+  #         access-key: ${{ secrets.IA_ACCESS_KEY }}
+  #         secret-key: ${{ secrets.IA_SECRET_KEY }}
+  #         collection: ${{ secrets.IA_COLLECTION }}
+
+  # upload:
+  #   name: Upload
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 60
+  #   needs: [jpg]
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: upload
+  #       name: Upload
+  #       uses: ./.github/actions/upload
+  #       with:
+  #         artifact: screenshots
+  #         destination: latest-screenshots
+  #         s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
+
+  # mosaic:
+  #   name: Create JPG mosaic
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   needs: [jpg]
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: mosaic
+  #       name: Mosaic
+  #       uses: ./.github/actions/mosaic
+  #       with:
+  #         command: jpg
+
+  # discord:
+  #   name: Post to Discord
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   needs: [mosaic,upload]
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: discord
+  #       name: Discord
+  #       uses: ./.github/actions/discord
+  #       with:
+  #         bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
+  #         command: bundle ${{ inputs.bundle }}
+
+  # tweet:
+  #   name: Post to Twitter
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   needs: [mosaic,upload]
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: tweet
+  #       name: Tweet
+  #       uses: ./.github/actions/tweet
+  #       with:
+  #         consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
+  #         consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+  #         access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
+  #         access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+  #         command: bundle ${{ inputs.bundle }}
+
+  # telegram:
+  #   name: Post to Telegram
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   needs: [mosaic,upload]
+  #   steps:
+  #     - id: checkout
+  #       name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - id: telegram
+  #       name: Telegram
+  #       uses: ./.github/actions/telegram
+  #       with:
+  #         api-key: ${{ secrets.TELEGRAM_API_KEY }}
+  #         command: bundle ${{ inputs.bundle }}
