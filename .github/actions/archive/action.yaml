@@ -1,0 +1,85 @@
+name: Archive
+description: Run a suite of archiving routines for the provided source
+
+inputs:
+  source:
+    description: The command config spelling out what to screenshot
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - id: install
+      name: Install Python dependencies
+      uses: ./.github/actions/install
+
+    - id: cache-playwright
+      name: Cache Playwright browsers
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/ms-playwright/
+        key: ${{ runner.os }}-browsers
+
+    - id: install-playwright
+      name: Install Playwright dependencies
+      run: pipenv run playwright install --with-deps chromium
+      shell: bash
+
+    - id: shoot-cropped-screenshot
+      name: Cropped screenshot
+      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} -o _cropped_screenshot
+      shell: bash
+
+    - id: save-cropped-screenshot
+      name: Save artifact
+      uses: actions/upload-artifact@v3
+      if: ${{ always() }}
+      with:
+        name: screenshots
+        path: _cropped_screenshot
+        if-no-files-found: ignore
+
+    - id: shoot-full-page-screenshot
+      name: Take full page screenshot
+      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} --full-page -o _full_page_screenshot
+      if: ${{ always() }}
+      shell: bash
+
+    - id: save-full-page-screenshot
+      name: Save artifact
+      uses: actions/upload-artifact@v3
+      if: ${{ always() }}
+      with:
+        name: full-page-screenshots
+        path: _full_page_screenshot
+        if-no-files-found: ignore
+
+    - id: get-hyperlinks
+      name: Get hyperlinks
+      run: pipenv run newshomepages-hyperlinks ${{ inputs.source }} -o _hyperlinks
+      if: ${{ always() }}
+      shell: bash
+
+    - id: save-hyperlinks
+      name: Save artifact
+      uses: actions/upload-artifact@v3
+      if: ${{ always() }}
+      with:
+        name: hyperlinks
+        path: _hyperlinks
+        if-no-files-found: ignore
+
+    - id: get-a11y
+      name: Get a11y tree
+      run: pipenv run newshomepages-accessibility ${{ inputs.source }} -o _accessibility
+      if: ${{ always() }}
+      shell: bash
+
+    - id: save-a11y
+      name: Save artifact
+      uses: actions/upload-artifact@v3
+      if: ${{ always() }}
+      with:
+        name: accessibility
+        path: _accessibility
+        if-no-files-found: ignore
