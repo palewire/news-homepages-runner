@@ -140,20 +140,20 @@ runs:
         path: ./${{ inputs.source }}.lighthouse.json
         if-no-files-found: ignore
 
-      - id: html
-        name: Fetch HTML
-        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run python -m newshomepages.html ${{ matrix.source }} -o _dist
-        if: ${{ always() }}
-        shell: bash
-        env:
-          DEBUG: 'pw:api'
-          CHROME_IPC_LOGGING: 1
+    - id: html
+      name: Fetch HTML
+      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run python -m newshomepages.html ${{ matrix.source }} -o _dist
+      if: ${{ always() }}
+      shell: bash
+      env:
+        DEBUG: 'pw:api'
+        CHROME_IPC_LOGGING: 1
 
-      - id: save
-        name: Save artifact
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: html
-          path: _dist
-          if-no-files-found: error
+    - id: save
+      name: Save artifact
+      uses: actions/upload-artifact@v3
+      if: ${{ always() }}
+      with:
+        name: html
+        path: _dist
+        if-no-files-found: error
