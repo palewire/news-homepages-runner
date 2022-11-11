@@ -28,6 +28,7 @@ runs:
     - id: shoot-cropped-screenshot
       name: Cropped screenshot
       run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} -o _cropped_screenshot
+      if: ${{ always() }}
       shell: bash
 
     - id: save-cropped-screenshot

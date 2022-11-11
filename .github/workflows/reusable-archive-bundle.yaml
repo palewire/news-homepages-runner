@@ -39,12 +39,11 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
 
-      - id: screenshot
-        name: Screenshot
-        uses: ./.github/actions/screenshot
+      - id: archive
+        name: Archive
+        uses: ./.github/actions/archive
         with:
           source: ${{ matrix.source }}
-          artifact: screenshots
 
   # jpg-full:
   #   name: JPG (Full screen)
