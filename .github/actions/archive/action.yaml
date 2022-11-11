@@ -5,6 +5,12 @@ inputs:
   source:
     description: The command config spelling out what to screenshot
     required: true
+  access-key:
+    description: An API key with permission to post to archive.org
+    required: true
+  secret-key:
+    description: An API secret with permission to post to archive.org
+    required: true
 
 runs:
   using: 'composite'
@@ -32,7 +38,7 @@ runs:
       shell: bash
 
     - id: save-cropped-screenshot
-      name: Save artifact
+      name: Save cropped screenshot artifact
       uses: actions/upload-artifact@v3
       if: ${{ always() }}
       with:
@@ -47,7 +53,7 @@ runs:
       shell: bash
 
     - id: save-full-page-screenshot
-      name: Save artifact
+      name: Save full page screenshot artifact
       uses: actions/upload-artifact@v3
       if: ${{ always() }}
       with:
@@ -62,7 +68,7 @@ runs:
       shell: bash
 
     - id: save-hyperlinks
-      name: Save artifact
+      name: Save hyperlinks artifact
       uses: actions/upload-artifact@v3
       if: ${{ always() }}
       with:
@@ -77,10 +83,55 @@ runs:
       shell: bash
 
     - id: save-a11y
-      name: Save artifact
+      name: Save a11y artifact
       uses: actions/upload-artifact@v3
       if: ${{ always() }}
       with:
         name: accessibility
         path: _accessibility
+        if-no-files-found: ignore
+
+    - id: ping-wayback
+      name: Save in Wayback Machine
+      run: pipenv run newshomepages-wayback ${{ inputs.source }} -o _wayback
+      if: ${{ always() }}
+      shell: bash
+      env:
+        IA_ACCESS_KEY: ${{ inputs.access-key }}
+        IA_SECRET_KEY: ${{ inputs.secret-key }}
+
+    - id: save-wayback
+      name: Save Wayback Machine artifact
+      uses: actions/upload-artifact@v3
+      if: ${{ always() }}
+      with:
+        name: wayback
+        path: _wayback
+        if-no-files-found: ignore
+
+    - id: get-site-url
+      name: Get URL for Lighthouse
+      run: |
+        export URL=$(pipenv run python -c "from newshomepages import utils; print(utils.get_site('${{ inputs.source }}')['url'])")
+        echo "url=$(echo $URL)" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - id: lighthouse-audit
+      name: Lighthouse audit
+      uses: treosh/lighthouse-ci-action@v9
+      with:
+        urls: ${{ steps.get-site-url.outputs.url }}
+        runs: 3
+
+    - id: mv-lighthouse
+      name: Move Lighthouse report
+      run: mv ${{ steps.lighthouse-audit.outputs.resultsPath }}/manifest.json ./${{ inputs.source }}.lighthouse.json
+      shell: bash
+
+    - id: save-lighthouse
+      name: Save Lighthouse artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: lighthouse
+        path: ./${{ inputs.source }}.lighthouse.json
         if-no-files-found: ignore
