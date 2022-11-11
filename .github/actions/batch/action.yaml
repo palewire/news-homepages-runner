@@ -19,7 +19,7 @@ runs:
 
     - id: create-json
       name: Create JSON
-      run: newshomepages-batch ${{ inputs.command }} > sites.json
+      run: pipenv run newshomepages-batch ${{ inputs.command }} > sites.json
       shell: bash
 
     - id: save
