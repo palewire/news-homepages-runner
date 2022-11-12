@@ -1,0 +1,14 @@
+name: 'Archive: U.S. national'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 12,21 * * *
+
+jobs:
+  archive-bundle:
+    name: Archive bundle
+    uses: ./.github/workflows/reusable-archive-bundle.yaml
+    with:
+      bundle: us-national
+    secrets: inherit
