@@ -54,20 +54,20 @@ runs:
         path: ./_dist/${{ inputs.source }}.jpg
         if-no-files-found: warn
 
-    # - id: shoot-full-page-screenshot
-    #   name: Take full page screenshot
-    #   run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} --full-page -o dist
-    #   if: ${{ always() }}
-    #   shell: bash
+    - id: shoot-full-page-screenshot
+      name: Take full page screenshot
+      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} --full-page -o dist
+      if: ${{ always() }}
+      shell: bash
 
-    # - id: save-full-page-screenshot
-    #   name: Save full page screenshot artifact
-    #   uses: actions/upload-artifact@v3
-    #   if: ${{ always() }}
-    #   with:
-    #     name: full-page-screenshots
-    #     path: ./_dist/${{ inputs.source }}.fullpage.jpg
-    #     if-no-files-found: warn
+    - id: save-full-page-screenshot
+      name: Save full page screenshot artifact
+      uses: actions/upload-artifact@v3
+      if: ${{ always() }}
+      with:
+        name: full-page-screenshots
+        path: ./_dist/${{ inputs.source }}.fullpage.jpg
+        if-no-files-found: warn
 
     - id: get-hyperlinks
       name: Get hyperlinks
@@ -163,12 +163,12 @@ runs:
         path: _dist/${{ inputs.source }}.html
         if-no-files-found: warn
 
-    # - id: archive
-    #   name: Archive
-    #   run: pipenv run newshomepages-archive ${{ inputs.source }} --verbose
-    #   if: ${{ always() }}
-    #   shell: bash
-    #   env:
-    #     IA_ACCESS_KEY: ${{ inputs.access-key }}
-    #     IA_SECRET_KEY: ${{ inputs.secret-key }}
-    #     IA_COLLECTION:  ${{ inputs.collection }}
+    - id: archive
+      name: Archive
+      run: pipenv run newshomepages-archive ${{ inputs.source }} --verbose -i ./_dist/
+      if: ${{ always() }}
+      shell: bash
+      env:
+        IA_ACCESS_KEY: ${{ inputs.access-key }}
+        IA_SECRET_KEY: ${{ inputs.secret-key }}
+        IA_COLLECTION:  ${{ inputs.collection }}
