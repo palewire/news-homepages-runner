@@ -51,8 +51,8 @@ runs:
       if: ${{ always() }}
       with:
         name: screenshots
-        path: ./dist/${{ inputs.source }}.jpg
-        if-no-files-found: ignore
+        path: ./_dist/${{ inputs.source }}.jpg
+        if-no-files-found: warn
 
     # - id: shoot-full-page-screenshot
     #   name: Take full page screenshot
@@ -66,8 +66,8 @@ runs:
     #   if: ${{ always() }}
     #   with:
     #     name: full-page-screenshots
-    #     path: ./dist/${{ inputs.source }}.fullpage.jpg
-    #     if-no-files-found: ignore
+    #     path: ./_dist/${{ inputs.source }}.fullpage.jpg
+    #     if-no-files-found: warn
 
     - id: get-hyperlinks
       name: Get hyperlinks
@@ -81,8 +81,8 @@ runs:
       if: ${{ always() }}
       with:
         name: hyperlinks
-        path: ./dist/${{ inputs.source }}.hyperlinks.json
-        if-no-files-found: ignore
+        path: ./_dist/${{ inputs.source }}.hyperlinks.json
+        if-no-files-found: warn
 
     - id: get-a11y
       name: Get a11y tree
@@ -96,8 +96,8 @@ runs:
       if: ${{ always() }}
       with:
         name: accessibility
-        path: ./dist/${{ inputs.source }}.accessibility.json
-        if-no-files-found: ignore
+        path: ./_dist/${{ inputs.source }}.accessibility.json
+        if-no-files-found: warn
 
     - id: ping-wayback
       name: Save in Wayback Machine
@@ -114,8 +114,8 @@ runs:
       if: ${{ always() }}
       with:
         name: wayback
-        path: ./dist/${{ inputs.source }}.wayback.json
-        if-no-files-found: ignore
+        path: ./_dist/${{ inputs.source }}.wayback.json
+        if-no-files-found: warn
 
     - id: get-site-url
       name: Get URL for Lighthouse
@@ -146,7 +146,7 @@ runs:
       with:
         name: lighthouse
         path: ./_dist/${{ inputs.source }}.lighthouse.json
-        if-no-files-found: ignore
+        if-no-files-found: warn
 
     - id: html
       name: Fetch HTML
@@ -161,7 +161,7 @@ runs:
       with:
         name: html
         path: _dist/${{ inputs.source }}.html
-        if-no-files-found: error
+        if-no-files-found: warn
 
     # - id: archive
     #   name: Archive
