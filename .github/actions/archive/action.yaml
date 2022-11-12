@@ -56,7 +56,7 @@ runs:
 
     - id: shoot-full-page-screenshot
       name: Take full page screenshot
-      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} --full-page -o dist
+      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} --full-page -o _dist
       if: ${{ always() }}
       shell: bash
 
