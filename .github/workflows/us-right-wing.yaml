@@ -3,65 +3,12 @@ name: 'Archive: U.S. right wing'
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'
+    - cron: 0 * * * *
 
 jobs:
-  hyperlinks:
-    name: Hyperlinks
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - id: checkout
-        name: Checkout
-        uses: actions/checkout@v3
-
-      - id: install-python
-        name: Install Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          cache: 'pipenv'
-
-      - id: install-pipenv
-        name: Install pipenv
-        run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-        shell: bash
-
-      - id: install-python-dependencies
-        name: Install Python dependencies
-        run: pipenv install --dev
-        shell: bash
-
-      - id: cache-playwright
-        name: Cache Playwright browsers
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/ms-playwright/
-          key: ${{ runner.os }}-browsers
-
-      - id: install-playwright
-        name: Install Playwright dependencies
-        run: pipenv run playwright install --with-deps chromium
-        shell: bash
-
-      - id: download-hyperlinks
-        name: Download hyperlinks
-        run: pipenv run newshomepages-hyperlinks us-right-wing --bundle -o _dist/;
-        shell: bash
-
-      - id: archive-hyperlinks
-        name: Archive hyperlinks
-        run: pipenv run newshomepages-archive us-right-wing --bundle -i _dist/ --verbose --wait=10;
-        shell: bash
-        env:
-          IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
-          IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
-          IA_COLLECTION: ${{ secrets.IA_COLLECTION }}
-
-      - id: save
-        name: Save artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: hyperlinks
-          path: _dist
-          if-no-files-found: error
+  archive-bundle:
+    name: Archive bundle
+    uses: ./.github/workflows/reusable-archive-bundle.yaml
+    with:
+      bundle: us-right-wing
+    secrets: inherit
