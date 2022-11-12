@@ -44,6 +44,7 @@ runs:
       run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} -o _dist
       if: ${{ always() }}
       shell: bash
+      timeout-minutes: 5
 
     - id: save-cropped-screenshot
       name: Save cropped screenshot artifact
@@ -59,6 +60,7 @@ runs:
       run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} --full-page -o _dist
       if: ${{ always() }}
       shell: bash
+      timeout-minutes: 5
 
     - id: save-full-page-screenshot
       name: Save full page screenshot artifact
@@ -74,6 +76,7 @@ runs:
       run: pipenv run newshomepages-hyperlinks ${{ inputs.source }} -o _dist
       if: ${{ always() }}
       shell: bash
+      timeout-minutes: 5
 
     - id: save-hyperlinks
       name: Save hyperlinks artifact
@@ -89,6 +92,7 @@ runs:
       run: pipenv run newshomepages-accessibility ${{ inputs.source }} -o _dist
       if: ${{ always() }}
       shell: bash
+      timeout-minutes: 5
 
     - id: save-a11y
       name: Save a11y artifact
@@ -107,6 +111,7 @@ runs:
       env:
         IA_ACCESS_KEY: ${{ inputs.access-key }}
         IA_SECRET_KEY: ${{ inputs.secret-key }}
+      timeout-minutes: 5
 
     - id: save-wayback
       name: Save Wayback Machine artifact
@@ -132,6 +137,7 @@ runs:
       with:
         urls: ${{ steps.get-site-url.outputs.url }}
         runs: 3
+      timeout-minutes: 5
 
     - id: mv-lighthouse
       name: Move Lighthouse report
@@ -153,6 +159,7 @@ runs:
       run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run python -m newshomepages.html ${{ matrix.source }} -o _dist
       if: ${{ always() }}
       shell: bash
+      timeout-minutes: 5
 
     - id: save
       name: Save artifact
@@ -172,3 +179,4 @@ runs:
         IA_ACCESS_KEY: ${{ inputs.access-key }}
         IA_SECRET_KEY: ${{ inputs.secret-key }}
         IA_COLLECTION:  ${{ inputs.collection }}
+      timeout-minutes: 5
