@@ -39,8 +39,25 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
 
+      - id: install
+        name: Install Python dependencies
+        uses: ./.github/actions/install
+
+      - id: mk-dist-dir
+        name: Create distribution directory
+        run: mkdir _dist
+        shell: bash
+
+      - id: screenshot-cropped
+        name: Screenshot (cropped)
+        timeout-minutes: 5
+        uses: ./.github/actions/screenshot-cropped
+        with:
+          source: ${{ matrix.source }}
+
       - id: archive
         name: Archive
+        if: ${{ always() }}
         uses: ./.github/actions/archive
         with:
           source: ${{ matrix.source }}

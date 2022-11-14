@@ -1,0 +1,23 @@
+name: Screenshot (cropped)
+description: Take a cropped screenshot of the provided source
+
+inputs:
+  source:
+    description: The command config spelling out what to screenshot
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - id: shoot-cropped-screenshot
+      name: Cropped screenshot
+      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} -o _dist
+      shell: bash
+
+    - id: save-cropped-screenshot
+      name: Save cropped screenshot artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: screenshots
+        path: ./_dist/${{ inputs.source }}.jpg
+        if-no-files-found: warn
