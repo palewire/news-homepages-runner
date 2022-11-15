@@ -140,38 +140,58 @@ jobs:
           s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
 
-  # mosaic:
-  #   name: Create JPG mosaic
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 15
-  #   needs: [jpg]
-  #   steps:
-  #     - id: checkout
-  #       name: Checkout
-  #       uses: actions/checkout@v3
+  mosaic:
+    name: Create JPG mosaic
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [archive]
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
 
-  #     - id: mosaic
-  #       name: Mosaic
-  #       uses: ./.github/actions/mosaic
-  #       with:
-  #         command: jpg
+      - id: install
+        name: Install Python dependencies
+        uses: ./.github/actions/install
 
-  # discord:
-  #   name: Post to Discord
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 15
-  #   needs: [mosaic,upload]
-  #   steps:
-  #     - id: checkout
-  #       name: Checkout
-  #       uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: screenshots
+          path: ./_input
 
-  #     - id: discord
-  #       name: Discord
-  #       uses: ./.github/actions/discord
-  #       with:
-  #         bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
-  #         command: bundle ${{ inputs.bundle }}
+      - id: mosaic
+        name: Mosaic
+        run: pipenv run newshomepages-mosaic jpg -i ./_input -o ./_dist
+        shell: bash
+
+      - id: save
+        name: Save artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: mosaics
+          path: _dist
+          if-no-files-found: error
+
+  discord:
+    name: Post to Discord
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [mosaic,upload]
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
+
+      - id: install
+        name: Install Python dependencies
+        uses: ./.github/actions/install
+
+      - id: discord
+        name: Discord
+        uses: ./.github/actions/discord
+        with:
+          bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
+          command: bundle ${{ inputs.bundle }}
 
   # tweet:
   #   name: Post to Twitter
