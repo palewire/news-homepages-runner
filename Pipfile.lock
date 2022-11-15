@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6c85527ec9c74437e029a0c82c0513b97fbb5add71b95ac0e7dbb6add0ebaaa2"
+            "sha256": "6aacc93b57ef6d9580eae8f8648a6b63c679f8a631126a41a1ff54d57d43cdcb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -1138,11 +1138,11 @@
         },
         "newshomepages": {
             "hashes": [
-                "sha256:c96fdd6d6d3a280b088991cbfb0d99af286853fe57127ec949272f0ee6976f1b",
-                "sha256:ccc1b57787b9351b1bc50c2a4866def8197118dfbf791de18149b5554a1061ca"
+                "sha256:48605c382ddc950246c6d4ff794593a3503e43f92378498ab4ac7f0638baf9c8",
+                "sha256:592fef19f64086fa760951164ba37b22308dd5794815007722c3936532045d12"
             ],
             "index": "pypi",
-            "version": "==0.0.5"
+            "version": "==0.0.6"
         },
         "notebook": {
             "hashes": [
@@ -1779,7 +1779,7 @@
                 "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983",
                 "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"
             ],
-            "markers": "python_version >= '3.7' and python_version < '4'",
+            "markers": "python_version >= '3.7' and python_full_version < '4.0.0'",
             "version": "==2.28.1"
         },
         "requests-file": {
@@ -1809,7 +1809,7 @@
                 "sha256:a4eb26484f2c82589bd9a17c73d32a010b1e29d89f1604cd9bf3a2097b81bb5e",
                 "sha256:ba3a3775974105c221d31141f2c116f4fd65c5ceb0698657a11e9f295ec93fd0"
             ],
-            "markers": "python_version < '4' and python_full_version >= '3.6.3'",
+            "markers": "python_full_version >= '3.6.3' and python_full_version < '4.0.0'",
             "version": "==12.6.0"
         },
         "savepagenow": {
@@ -1923,7 +1923,7 @@
                 "sha256:71d14489da58b60ce12fc3ecb823facc59a8b23cd1b58edb97175640350d3a62",
                 "sha256:75abf758717a92a8f53aa96953f0c245c8cedf8e1e4184903db3659b419d4c17"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4'",
+            "markers": "python_version >= '3.6' and python_full_version < '4.0.0'",
             "version": "==5.2.1"
         },
         "sniffio": {
@@ -2232,7 +2232,7 @@
                 "sha256:3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e",
                 "sha256:b930dd878d5a8afb066a637fbb35144fe7901e3b209d1cd4f524bd0e9deee997"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5' and python_full_version < '4.0.0'",
             "version": "==1.26.12"
         },
         "urllib3-secure-extra": {
