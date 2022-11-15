@@ -1,0 +1,37 @@
+name: Lighthouse
+description: Audit the site with Lighthouse
+
+inputs:
+  source:
+    description: The source to audit
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - id: get-site-url
+      name: Get URL for Lighthouse
+      run: |
+        export URL=$(pipenv run python -c "from newshomepages import utils; print(utils.get_site('${{ inputs.source }}')['url'])")
+        echo "url=$(echo $URL)" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - id: lighthouse-audit
+      name: Lighthouse audit
+      uses: treosh/lighthouse-ci-action@v9
+      with:
+        urls: ${{ steps.get-site-url.outputs.url }}
+        runs: 3
+
+    - id: mv-lighthouse
+      name: Move Lighthouse report
+      run: mv ${{ steps.lighthouse-audit.outputs.resultsPath }}/manifest.json ./_dist/${{ inputs.source }}.lighthouse.json
+      shell: bash
+
+    - id: save-lighthouse
+      name: Save Lighthouse artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: lighthouse
+        path: ./_dist/${{ inputs.source }}.lighthouse.json
+        if-no-files-found: warn

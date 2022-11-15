@@ -1,0 +1,23 @@
+name: Accessibility
+description: Extract accessiblity tree from the page
+
+inputs:
+  source:
+    description: The source to collect
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - id: get-a11y
+      name: Get a11y tree
+      run: pipenv run newshomepages-accessibility ${{ inputs.source }} -o _dist
+      shell: bash
+
+    - id: save-a11y
+      name: Save a11y artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: accessibility
+        path: ./_dist/${{ inputs.source }}.accessibility.json
+        if-no-files-found: warn

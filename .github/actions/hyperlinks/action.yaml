@@ -1,0 +1,23 @@
+name: Hyperlinks
+description: Extract hyperlinks from the page
+
+inputs:
+  source:
+    description: The source to collect
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - id: get-hyperlinks
+      name: Get hyperlinks
+      run: pipenv run newshomepages-hyperlinks ${{ inputs.source }} -o _dist
+      shell: bash
+
+    - id: save-hyperlinks
+      name: Save hyperlinks artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: hyperlinks
+        path: ./_dist/${{ inputs.source }}.hyperlinks.json
+        if-no-files-found: warn

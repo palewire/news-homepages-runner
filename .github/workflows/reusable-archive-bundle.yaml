@@ -55,9 +55,60 @@ jobs:
         with:
           source: ${{ matrix.source }}
 
+      - id: screenshot-full-page
+        name: Screenshot (full page)
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/screenshot-full-page
+        with:
+          source: ${{ matrix.source }}
+
+      - id: hyperlinks
+        name: Hyperlinks
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/hyperlinks
+        with:
+          source: ${{ matrix.source }}
+
+      - id: accessibility
+        name: Accessibility tree
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/accessibility
+        with:
+          source: ${{ matrix.source }}
+
+      - id: wayback
+        name: Wayback Machine
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/wayback
+        with:
+          source: ${{ matrix.source }}
+          access-key: ${{ secrets.IA_ACCESS_KEY }}
+          secret-key: ${{ secrets.IA_SECRET_KEY }}
+
+      - id: lighthouse
+        name: Lighthouse
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/lighthouse
+        with:
+          source: ${{ matrix.source }}
+
+      - id: html
+        name: HTML
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/html
+        with:
+          source: ${{ matrix.source }}
+
       - id: archive
         name: Archive
         if: ${{ always() }}
+        timeout-minutes: 5
         uses: ./.github/actions/archive
         with:
           source: ${{ matrix.source }}

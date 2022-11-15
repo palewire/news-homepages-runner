@@ -3,7 +3,7 @@ description: Take a cropped screenshot of the provided source
 
 inputs:
   source:
-    description: The command config spelling out what to screenshot
+    description: The source to collect
     required: true
 
 runs:
