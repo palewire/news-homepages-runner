@@ -11,7 +11,7 @@ runs:
   steps:
     - id: html
       name: Fetch HTML
-      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run python -m newshomepages.html ${{ inputs.source }} -o _dist
+      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-html ${{ inputs.source }} -o _dist
       shell: bash
 
     - id: save
