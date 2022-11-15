@@ -1,0 +1,28 @@
+name: Download items
+description: Download items from our archive.org collection
+
+inputs:
+  source:
+    description: The site to download
+    required: true
+  collection:
+    description: The identifier of the target archive.org collection
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - id: download
+      name: Download
+      run: pipenv run newshomepages.extract download-items --site=${{ inputs.source }} -o ./
+      shell: bash
+      env:
+        IA_COLLECTION: ${{ inputs.collection }}
+
+    - id: save-items
+      name: Save items artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: items
+        path: ./${{ inputs.source }}.json
+        if-no-files-found: warn
