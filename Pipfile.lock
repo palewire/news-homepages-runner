@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6aacc93b57ef6d9580eae8f8648a6b63c679f8a631126a41a1ff54d57d43cdcb"
+            "sha256": "513e6ab52a8213a409b43026306119a5a35877a9be1b77d40c32b01ac7a25da7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -874,11 +874,11 @@
         },
         "jupyter-client": {
             "hashes": [
-                "sha256:540b6a5c9c2dc481c5dd54fd5acb260f03dfaaa7c5325b2ffb1f676710f8c7c4",
-                "sha256:f7f9a9dc3a0ecd223ed6a5a00cf4140a5c252ec72e52d6de370748ed0aa083dd"
+                "sha256:330f6b627e0b4bf2f54a3a0dd9e4a22d2b649c8518168afedce2c96a1ceb2860",
+                "sha256:df56ae23b8e1da1b66f89dee1368e948b24a7f780fa822c5735187589fc4c157"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==7.4.6"
+            "version": "==7.4.7"
         },
         "jupyter-core": {
             "hashes": [
@@ -1138,11 +1138,11 @@
         },
         "newshomepages": {
             "hashes": [
-                "sha256:48605c382ddc950246c6d4ff794593a3503e43f92378498ab4ac7f0638baf9c8",
-                "sha256:592fef19f64086fa760951164ba37b22308dd5794815007722c3936532045d12"
+                "sha256:93911cbdb7f8b60b2fae01ac1f9a2bb2e68c1d6ee2107377a9c566a08b2f49ba",
+                "sha256:b216053ed4b18ce248a78db1abf18d693f54369b3265524017f1db22315ec024"
             ],
             "index": "pypi",
-            "version": "==0.0.6"
+            "version": "==0.0.7"
         },
         "notebook": {
             "hashes": [
@@ -1269,11 +1269,11 @@
         },
         "pathy": {
             "hashes": [
-                "sha256:898e8b6f5fc6c52a4eef1977ff913ae2a9f55f6ac35f1eb48cf95d8c014876c2",
-                "sha256:d82d554d8244bcbb32dc16a38cf9f0f8d895e92d0342cc255336b5a628461662"
+                "sha256:7da78fc4b6188d5e62c7aeea1676e6875b9e88e70bbe899c466e4cdb450fd4f1",
+                "sha256:899e88fe848b58d9823423bd6f94fbc76f48af29245925b4736aaf6756be4533"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==0.7.1"
+            "version": "==0.8.1"
         },
         "pexpect": {
             "hashes": [
