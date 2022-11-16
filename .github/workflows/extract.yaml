@@ -108,7 +108,7 @@ jobs:
         uses: ./.github/actions/upload
         with:
           artifact: extracts
-          destination: extracts
+          destination: extracts/csv/
           s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}

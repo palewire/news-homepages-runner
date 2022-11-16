@@ -26,7 +26,7 @@ jobs:
 
       - id: analyze
         name: Analyze Lighthouse audits
-        run: pipenv run newshomepages-analyze lighthouse
+        run: pipenv run newshomepages-analyze lighthouse -o ./
         shell: bash
 
       - id: save
@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: extracts
-          path: ./extracts
+          path: ./lighthouse-analysis.csv
           if-no-files-found: error
 
   drudge-hyperlinks:
@@ -53,7 +53,7 @@ jobs:
 
       - id: analyze
         name: Analyze Drudge hyperlinks
-        run: pipenv run newshomepages-analyze drudge-hyperlinks
+        run: pipenv run newshomepages-analyze drudge-hyperlinks -o ./
         shell: bash
 
       - id: save
@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: extracts
-          path: ./extracts
+          path: ./drudge-hyperlinks-analysis.csv
           if-no-files-found: error
 
   drudge-entities:
@@ -85,7 +85,7 @@ jobs:
 
       - id: analyze
         name: Analyze Drudge entities
-        run: pipenv run newshomepages-analyze drudge-entities
+        run: pipenv run newshomepages-analyze drudge-entities -o ./
         shell: bash
 
       - id: save
@@ -93,7 +93,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: extracts
-          path: ./extracts
+          path: ./drudge-entities-analysis.csv
           if-no-files-found: error
 
   upload:
@@ -111,7 +111,7 @@ jobs:
         uses: ./.github/actions/upload
         with:
           artifact: extracts
-          destination: extracts
+          destination: extracts/csv/
           s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
