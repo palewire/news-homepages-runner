@@ -27,8 +27,8 @@ jobs:
   archive:
     name: Archive
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     needs: sources
+    timeout-minutes: 60
     continue-on-error: true
     strategy:
       fail-fast: false
@@ -37,9 +37,11 @@ jobs:
     steps:
       - id: checkout
         name: Checkout
+        timeout-minutes: 5
         uses: actions/checkout@v3
 
       - id: install
+        timeout-minutes: 5
         name: Install Python dependencies
         uses: ./.github/actions/install
 

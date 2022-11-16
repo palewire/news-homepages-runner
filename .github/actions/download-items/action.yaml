@@ -14,7 +14,7 @@ runs:
   steps:
     - id: download
       name: Download
-      run: pipenv run newshomepages-extract download-items --site=${{ inputs.source }} --output-path ./
+      run: pipenv run newshomepages-extract download-items --site=${{ inputs.source }} --output-path ./_items
       shell: bash
       env:
         IA_COLLECTION: ${{ inputs.collection }}
@@ -24,5 +24,5 @@ runs:
       uses: actions/upload-artifact@v3
       with:
         name: items
-        path: ./${{ inputs.source }}.json
+        path: ./_items/*.json
         if-no-files-found: warn
