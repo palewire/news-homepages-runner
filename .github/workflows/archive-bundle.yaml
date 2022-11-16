@@ -11,7 +11,7 @@ on:
 jobs:
   archive-bundle:
     name: Archive bundle
-    uses: palewire/news-homepages/.github/workflows/reusable-archive-bundle.yml@main
+    uses: palewire/news-homepages-runner/.github/workflows/reusable-archive-bundle.yml@main
     with:
       bundle: ${{ inputs.bundle }}
     secrets: inherit
