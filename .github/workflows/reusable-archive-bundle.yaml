@@ -180,17 +180,9 @@ jobs:
           name: screenshots
           path: ./_input
 
-      - id: discord
-        name: Discord
-        uses: ./.github/actions/discord
-        with:
-          bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
-          command: bundle ${{ inputs.bundle }} -i ./_input
-
       - id: tweet
         name: Tweet
         uses: ./.github/actions/tweet
-        if: ${{ always() }}
         with:
           command: bundle ${{ inputs.bundle }} -i ./_input
           consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
@@ -198,19 +190,19 @@ jobs:
           access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
           access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
 
-  # telegram:
-  #   name: Post to Telegram
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 15
-  #   needs: [mosaic,upload]
-  #   steps:
-  #     - id: checkout
-  #       name: Checkout
-  #       uses: actions/checkout@v3
 
-  #     - id: telegram
-  #       name: Telegram
-  #       uses: ./.github/actions/telegram
-  #       with:
-  #         api-key: ${{ secrets.TELEGRAM_API_KEY }}
-  #         command: bundle ${{ inputs.bundle }}
+      - id: discord
+        name: Discord
+        uses: ./.github/actions/discord
+        if: ${{ always() }}
+        with:
+          command: bundle ${{ inputs.bundle }} -i ./_input
+          bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
+
+      - id: telegram
+        name: Telegram
+        uses: ./.github/actions/telegram
+        if: ${{ always() }}
+        with:
+          command: bundle ${{ inputs.bundle }} -i ./_input
+          api-key: ${{ secrets.TELEGRAM_API_KEY }}
