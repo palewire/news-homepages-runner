@@ -1,4 +1,4 @@
-name: 'Archive: U.S. left wing'
+name: 'Scheduled Archive: U.S. left wing'
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: 'Archive: U.S. national'
+name: 'Scheduled Archive: U.S. national'
 
 on:
   workflow_dispatch:

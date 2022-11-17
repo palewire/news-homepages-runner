@@ -1,4 +1,4 @@
-name: Analyze
+name: "Scheduled ETL: Custom analysis"
 
 on:
   schedule:

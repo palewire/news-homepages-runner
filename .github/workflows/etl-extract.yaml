@@ -1,4 +1,4 @@
-name: Extract
+name: "Scheduled ETL: Extracts"
 
 on:
   schedule:
