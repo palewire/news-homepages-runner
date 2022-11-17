@@ -161,11 +161,11 @@ jobs:
           s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
 
-  mosaic:
-    name: Create JPG mosaic
+  post:
+    name: Post
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    needs: [archive]
+    needs: [upload]
     steps:
       - id: checkout
         name: Checkout
@@ -180,59 +180,23 @@ jobs:
           name: screenshots
           path: ./_input
 
-      - id: mosaic
-        name: Mosaic
-        run: pipenv run newshomepages-mosaic jpg -i ./_input -o ./_dist
-        shell: bash
-
-      - id: save
-        name: Save artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: mosaics
-          path: _dist
-          if-no-files-found: error
-
-  discord:
-    name: Post to Discord
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    needs: [mosaic,upload]
-    steps:
-      - id: checkout
-        name: Checkout
-        uses: actions/checkout@v3
-
-      - id: install
-        name: Install Python dependencies
-        uses: ./.github/actions/install
-
       - id: discord
         name: Discord
         uses: ./.github/actions/discord
         with:
           bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
-          command: bundle ${{ inputs.bundle }}
+          command: bundle ${{ inputs.bundle }} -i ./_input
 
-  # tweet:
-  #   name: Post to Twitter
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 15
-  #   needs: [mosaic,upload]
-  #   steps:
-  #     - id: checkout
-  #       name: Checkout
-  #       uses: actions/checkout@v3
-
-  #     - id: tweet
-  #       name: Tweet
-  #       uses: ./.github/actions/tweet
-  #       with:
-  #         consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
-  #         consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-  #         access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
-  #         access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-  #         command: bundle ${{ inputs.bundle }}
+      - id: tweet
+        name: Tweet
+        uses: ./.github/actions/tweet
+        if: ${{ always() }}
+        with:
+          command: bundle ${{ inputs.bundle }} -i ./_input
+          consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
+          consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+          access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
+          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
 
   # telegram:
   #   name: Post to Telegram

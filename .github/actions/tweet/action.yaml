@@ -1,0 +1,32 @@
+name: Tweet
+description: Post to Twitter
+
+inputs:
+  command:
+    description: The command to run
+    required: true
+  consumer-key:
+    description: The Twitter consumer key
+    required: true
+  consumer-secret:
+    description: The Twitter consumer secret
+    required: true
+  access-token-key:
+    description: The Twitter access token key
+    required: true
+  access-token-secret:
+    description: The Twitter access token secret
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: tweet
+      name: Tweet
+      run: pipenv run newshomepages-tweet ${{ inputs.command }}
+      shell: bash
+      env:
+        TWITTER_CONSUMER_KEY: ${{ inputs.consumer-key }}
+        TWITTER_CONSUMER_SECRET: ${{ inputs.consumer-secret }}
+        TWITTER_ACCESS_TOKEN_KEY: ${{ inputs.access-token-key }}
+        TWITTER_ACCESS_TOKEN_SECRET: ${{ inputs.access-token-secret }}

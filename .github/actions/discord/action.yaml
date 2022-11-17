@@ -1,6 +1,6 @@
 
 name: Discord
-description: Post screenshots to a Discord channel
+description: Post to Discord
 
 inputs:
   command:
@@ -13,14 +13,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/download-artifact@v3
-      with:
-        name: mosaics
-        path: ./_input
-
     - id: discord
       name: Discord
-      run: pipenv run newshomepages-discorder ${{ inputs.command }} -i ./_input
+      run: pipenv run newshomepages-discorder ${{ inputs.command }}
       shell: bash
       env:
         DISCORD_BOT_TOKEN: ${{ inputs.bot-token }}
