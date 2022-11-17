@@ -180,23 +180,28 @@ jobs:
           name: screenshots
           path: ./_input
 
+      - id: mosaic
+        name: Mosaic
+        uses: ./.github/actions/mosaic
+        with:
+          command: jpg -i ./_input/
+
       - id: tweet
         name: Tweet
         uses: ./.github/actions/tweet
         with:
-          command: bundle ${{ inputs.bundle }} -i ./_input
+          command: bundle ${{ inputs.bundle }} -i ./_dist
           consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
           access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
           access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-
 
       - id: discord
         name: Discord
         uses: ./.github/actions/discord
         if: ${{ always() }}
         with:
-          command: bundle ${{ inputs.bundle }} -i ./_input
+          command: bundle ${{ inputs.bundle }} -i ./_dist
           bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
 
       - id: telegram
@@ -204,5 +209,5 @@ jobs:
         uses: ./.github/actions/telegram
         if: ${{ always() }}
         with:
-          command: bundle ${{ inputs.bundle }} -i ./_input
+          command: bundle ${{ inputs.bundle }} -i ./_dist
           api-key: ${{ secrets.TELEGRAM_API_KEY }}

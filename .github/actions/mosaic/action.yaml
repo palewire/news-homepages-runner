@@ -1,0 +1,23 @@
+name: Mosaic
+description: Create image mosaics
+
+inputs:
+  command:
+    description: "The command to run"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: mosaic
+      name: Mosaic
+      run: pipenv run newshomepages-mosaic ${{ inputs.command }} -o ./_dist
+      shell: bash
+
+    - id: save
+      name: Save mosaics artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: mosaics
+        path: ./_dist/
+        if-no-files-found: warn
