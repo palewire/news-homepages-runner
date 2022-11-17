@@ -3,11 +3,11 @@ description: Create image mosaics
 
 inputs:
   command:
-    description: "The command to run"
+    description: The command to run
     required: true
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - id: mosaic
       name: Mosaic
