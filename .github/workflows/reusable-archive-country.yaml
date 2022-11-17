@@ -1,10 +1,10 @@
-name: 'Reusable workflow: Archive bundle'
+name: 'Reusable workflow: Archive country'
 
 on:
   workflow_call:
     inputs:
-      bundle:
-        description: The slug of the bundle to archive
+      country:
+        description: The two-digit alpha code of the country to archive
         required: true
         type: string
 
@@ -20,7 +20,7 @@ jobs:
       - id: get-site-list
         uses: ./.github/actions/batch
         with:
-          command: sites-by-bundle ${{ inputs.bundle }}
+          command: sites-by-country ${{ inputs.country }}
     outputs:
       site-list: ${{ steps.get-site-list.outputs.site-list }}
 
@@ -54,14 +54,6 @@ jobs:
         name: Screenshot (cropped)
         timeout-minutes: 5
         uses: ./.github/actions/screenshot-cropped
-        with:
-          source: ${{ matrix.source }}
-
-      - id: screenshot-full-page
-        name: Screenshot (full page)
-        if: ${{ always() }}
-        timeout-minutes: 5
-        uses: ./.github/actions/screenshot-full-page
         with:
           source: ${{ matrix.source }}
 
@@ -99,14 +91,6 @@ jobs:
         with:
           source: ${{ matrix.source }}
 
-      - id: html
-        name: HTML
-        if: ${{ always() }}
-        timeout-minutes: 5
-        uses: ./.github/actions/html
-        with:
-          source: ${{ matrix.source }}
-
       - id: archive
         name: Archive
         if: ${{ always() }}
@@ -124,7 +108,7 @@ jobs:
         timeout-minutes: 5
         uses: ./.github/actions/download-items
         with:
-          command: --site=${{ matrix.source }}
+          source: --country=${{ matrix.source }}
           collection: ${{ secrets.IA_COLLECTION }}
 
   upload:
@@ -190,7 +174,7 @@ jobs:
         name: Tweet
         uses: ./.github/actions/tweet
         with:
-          command: bundle ${{ inputs.bundle }} -i ./_dist
+          command: country ${{ inputs.country }} -i ./_dist
           consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
           access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
@@ -201,7 +185,7 @@ jobs:
         uses: ./.github/actions/discord
         if: ${{ always() }}
         with:
-          command: bundle ${{ inputs.bundle }} -i ./_dist
+          command: country ${{ inputs.country }} -i ./_dist
           bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
 
       - id: telegram
@@ -209,5 +193,5 @@ jobs:
         uses: ./.github/actions/telegram
         if: ${{ always() }}
         with:
-          command: bundle ${{ inputs.bundle }} -i ./_dist
+          command: country ${{ inputs.country }} -i ./_dist
           api-key: ${{ secrets.TELEGRAM_API_KEY }}

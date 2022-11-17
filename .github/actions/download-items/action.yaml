@@ -2,8 +2,8 @@ name: Download items
 description: Download items from our archive.org collection
 
 inputs:
-  source:
-    description: The site to download
+  command:
+    description: The command to run
     required: true
   collection:
     description: The identifier of the target archive.org collection
@@ -14,7 +14,7 @@ runs:
   steps:
     - id: download
       name: Download
-      run: pipenv run newshomepages-extract download-items --site=${{ inputs.source }} --output-path ./_items
+      run: pipenv run newshomepages-extract download-items ${{ inputs.source }} --output-path ./_items
       shell: bash
       env:
         IA_COLLECTION: ${{ inputs.collection }}
