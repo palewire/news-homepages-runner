@@ -1,0 +1,60 @@
+name: "Archive a single site"
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Site handle'
+        required: true
+        type: string
+      post:
+        description: 'Post'
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  archive-site:
+    name: Archive site
+    uses: palewire/news-homepages-runner/.github/workflows/reusable-archive-single.yaml@main
+    with:
+      source: ${{ inputs.source }}
+    secrets: inherit
+
+  post:
+    name: Post
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [archive-site]
+    if: inputs.post == true
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
+
+      - id: install
+        name: Install Python dependencies
+        uses: ./.github/actions/install
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: screenshots
+          path: ./_dist
+
+      - id: tweet
+        name: Tweet
+        uses: ./.github/actions/tweet
+        with:
+          command: single ${{ inputs.source }} -i ./_dist
+          consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
+          consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+          access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
+          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+
+      - id: telegram
+        name: Telegram
+        uses: ./.github/actions/telegram
+        if: ${{ always() }}
+        with:
+          command: single ${{ inputs.source }} -i ./_dist
+          api-key: ${{ secrets.TELEGRAM_API_KEY }}
