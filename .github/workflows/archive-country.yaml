@@ -11,7 +11,7 @@ on:
 jobs:
   archive-bundle:
     name: Archive country
-    uses: palewire/news-homepages-runner/.github/workflows/reusable-archive-country-workflow.yaml@main
+    uses: palewire/news-homepages-runner/.github/workflows/reusable-archive-country.yaml@main
     with:
       country: ${{ inputs.country }}
     secrets: inherit
