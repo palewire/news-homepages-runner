@@ -1,0 +1,14 @@
+name: 'Scheduled Archive: All sites (Batch 1)'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 22,10 * * *"
+
+jobs:
+  archive-batch:
+    name: Archive batch
+    uses: palewire/news-homepages-runner/.github/workflows/reusable-archive-batch.yaml@main
+    with:
+      batch: 1
+    secrets: inherit
