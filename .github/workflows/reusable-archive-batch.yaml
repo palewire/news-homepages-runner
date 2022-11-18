@@ -1,0 +1,146 @@
+name: 'Reusable workflow: Archive batch'
+
+on:
+  workflow_call:
+    inputs:
+      batch:
+        description: The batch number to archive
+        required: true
+        type: string
+
+jobs:
+  sources:
+    name: Sources
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
+
+      - id: get-site-list
+        uses: ./.github/actions/batch
+        with:
+          command: sites-by-batch ${{ inputs.batch }}
+    outputs:
+      site-list: ${{ steps.get-site-list.outputs.site-list }}
+
+  archive:
+    name: Archive
+    runs-on: ubuntu-latest
+    needs: sources
+    timeout-minutes: 60
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        source: ${{ fromJson(needs.sources.outputs.site-list) }}
+    steps:
+      - id: checkout
+        name: Checkout
+        timeout-minutes: 5
+        uses: actions/checkout@v3
+
+      - id: install
+        timeout-minutes: 5
+        name: Install Python dependencies
+        uses: ./.github/actions/install
+
+      - id: mk-dist-dir
+        name: Create distribution directory
+        run: mkdir _dist
+        shell: bash
+
+      - id: screenshot-cropped
+        name: Screenshot (cropped)
+        timeout-minutes: 5
+        uses: ./.github/actions/screenshot-cropped
+        with:
+          source: ${{ matrix.source }}
+
+      - id: hyperlinks
+        name: Hyperlinks
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/hyperlinks
+        with:
+          source: ${{ matrix.source }}
+
+      - id: accessibility
+        name: Accessibility tree
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/accessibility
+        with:
+          source: ${{ matrix.source }}
+
+      - id: wayback
+        name: Wayback Machine
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/wayback
+        with:
+          source: ${{ matrix.source }}
+          access-key: ${{ secrets.IA_ACCESS_KEY }}
+          secret-key: ${{ secrets.IA_SECRET_KEY }}
+
+      - id: lighthouse
+        name: Lighthouse
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/lighthouse
+        with:
+          source: ${{ matrix.source }}
+
+      - id: archive
+        name: Archive
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/archive
+        with:
+          source: ${{ matrix.source }}
+          access-key: ${{ secrets.IA_ACCESS_KEY }}
+          secret-key: ${{ secrets.IA_SECRET_KEY }}
+          collection: ${{ secrets.IA_COLLECTION }}
+
+      - id: download-items
+        name: Download items
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/download-items
+        with:
+          command: --site=${{ matrix.source }}
+          collection: ${{ secrets.IA_COLLECTION }}
+
+  upload:
+    name: Upload
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [archive]
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
+
+      - id: install
+        name: Install Python dependencies
+        uses: ./.github/actions/install
+
+      - id: upload-screenshots
+        name: Upload screenshots
+        uses: ./.github/actions/upload
+        with:
+          artifact: screenshots
+          destination: latest-screenshots
+          s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
+
+      - id: upload-items
+        name: Upload items
+        uses: ./.github/actions/upload
+        with:
+          artifact: items
+          destination: extracts/json/
+          s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
