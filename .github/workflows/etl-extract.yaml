@@ -33,7 +33,7 @@ jobs:
 
       - id: download-lighthouse
         name: Download Lighthouse files
-        run: pipenv run python -m newshomepages.extract download-lighthouse --days=7 --output-path=./lighthouse-sample.csv;
+        run: pipenv run python -m newshomepages.extract download-lighthouse --days=1 --output-path=./lighthouse-sample.csv;
         shell: bash
 
       - id: save
@@ -92,23 +92,23 @@ jobs:
   #         path: ./drudge-hyperlinks-sample.csv
   #         if-no-files-found: error
 
-  publish:
-    name: Publish
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    continue-on-error: true
-    needs: [download-lighthouse,] #, download-drudge-hyperlinks]
-    steps:
-      - id: checkout
-        name: Checkout
-        uses: actions/checkout@v3
+#   publish:
+#     name: Publish
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 60
+#     continue-on-error: true
+#     needs: [download-lighthouse,] #, download-drudge-hyperlinks]
+#     steps:
+#       - id: checkout
+#         name: Checkout
+#         uses: actions/checkout@v3
 
-      - id: upload
-        name: Upload
-        uses: ./.github/actions/upload
-        with:
-          artifact: extracts
-          destination: extracts/csv/
-          s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
+#       - id: upload
+#         name: Upload
+#         uses: ./.github/actions/upload
+#         with:
+#           artifact: extracts
+#           destination: extracts/csv/
+#           s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
