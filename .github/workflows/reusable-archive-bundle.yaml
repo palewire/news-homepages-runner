@@ -94,7 +94,7 @@ jobs:
       - id: lighthouse
         name: Lighthouse
         if: ${{ always() }}
-        timeout-minutes: 5
+        timeout-minutes: 10
         uses: ./.github/actions/lighthouse
         with:
           source: ${{ matrix.source }}
@@ -110,7 +110,7 @@ jobs:
       - id: archive
         name: Archive
         if: ${{ always() }}
-        timeout-minutes: 5
+        timeout-minutes: 10
         uses: ./.github/actions/archive
         with:
           source: ${{ matrix.source }}
