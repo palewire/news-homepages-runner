@@ -14,7 +14,7 @@ runs:
   steps:
     - id: download
       name: Download
-      run: pipenv run newshomepages-extract download-items ${{ inputs.command }} --output-path ./_items
+      run: pipenv run newshomepages-extract items ${{ inputs.command }} --output-path ./_items
       shell: bash
       env:
         IA_COLLECTION: ${{ inputs.collection }}
