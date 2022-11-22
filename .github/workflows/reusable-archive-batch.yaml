@@ -108,7 +108,7 @@ jobs:
         timeout-minutes: 5
         uses: ./.github/actions/download-items
         with:
-          command: --site=${{ matrix.source }}
+          command: ${{ matrix.source }}
           collection: ${{ secrets.IA_COLLECTION }}
 
   upload:

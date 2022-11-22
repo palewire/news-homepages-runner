@@ -87,7 +87,7 @@ jobs:
         timeout-minutes: 5
         uses: ./.github/actions/download-items
         with:
-          command: --site=${{ inputs.source }}
+          command: ${{ inputs.source }}
           collection: ${{ secrets.IA_COLLECTION }}
 
   upload:
