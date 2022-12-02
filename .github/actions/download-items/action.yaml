@@ -26,7 +26,7 @@ runs:
         IA_COLLECTION: ${{ inputs.collection }}
 
     - id: upload-latest
-      name: Upload file to archive.org
+      name: Upload files to archive.org
       uses: palewire/internet-archive-upload@main
       with:
         access-key: ${{ inputs.access-key }}
