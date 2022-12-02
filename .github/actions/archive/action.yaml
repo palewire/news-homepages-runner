@@ -20,7 +20,7 @@ runs:
   steps:
     - id: archive
       name: Archive
-      run: pipenv run newshomepages-archive ${{ inputs.source }} --verbose -i ./_dist/
+      run: pipenv run newshomepages-archive ${{ inputs.source }} --latest --verbose -i ./_dist/
       shell: bash
       env:
         IA_ACCESS_KEY: ${{ inputs.access-key }}
