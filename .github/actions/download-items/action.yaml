@@ -19,6 +19,15 @@ runs:
       env:
         IA_COLLECTION: ${{ inputs.collection }}
 
+    - id: upload-latest
+      name: Upload file to archive.org
+      uses: palewire/internet-archive-upload@main
+      with:
+        access-key: ${{ secrets.IA_ACCESS_KEY }}
+        secret-key: ${{ secrets.IA_SECRET_KEY }}
+        identifier: latest-homepages
+        files: ./_items/
+
     - id: save-items
       name: Save items artifact
       uses: actions/upload-artifact@v3
