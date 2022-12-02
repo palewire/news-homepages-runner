@@ -5,6 +5,12 @@ inputs:
   command:
     description: The command to run
     required: true
+  access-key:
+    description: An API key with permission to post to archive.org
+    required: true
+  secret-key:
+    description: An API secret with permission to post to archive.org
+    required: true
   collection:
     description: The identifier of the target archive.org collection
     required: true
@@ -23,8 +29,8 @@ runs:
       name: Upload file to archive.org
       uses: palewire/internet-archive-upload@main
       with:
-        access-key: ${{ secrets.IA_ACCESS_KEY }}
-        secret-key: ${{ secrets.IA_SECRET_KEY }}
+        access-key: ${{ inputs.access-key }}
+        secret-key: ${{ inputs.secret-key }}
         identifier: latest-homepages
         files: ./_items/
 
