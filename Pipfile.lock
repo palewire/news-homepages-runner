@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5e9e9837d378a7716eec703eb08661e6f1c1242ffd2de1bb8c40aba560641d75"
+            "sha256": "c76b411683c39100ee1d33898004c658474b34c2f7a6a2fe35778cb7a92ecdc6"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -1167,11 +1167,11 @@
         },
         "newshomepages": {
             "hashes": [
-                "sha256:523923150e46b91fa31f2c4419bcef3edabc85daa5f5eaa2ef0fef557d959c05",
-                "sha256:79e13a629c56fd22d0c689351ac71ecb1b2dd7ab3a4060c5c8801ea4d680a0f2"
+                "sha256:0180cb227cb142d796c1880c2d1fb31e2152310a2d3faa2299d61c4ce72b6617",
+                "sha256:64ac10249806893f4508eeed547c0698648c9140ef9378ad8fe57649b875d132"
             ],
             "index": "pypi",
-            "version": "==0.0.24"
+            "version": "==0.0.25"
         },
         "notebook": {
             "hashes": [
@@ -1808,7 +1808,7 @@
                 "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983",
                 "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"
             ],
-            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "markers": "python_version >= '3.7' and python_version < '4'",
             "version": "==2.28.1"
         },
         "requests-file": {
@@ -1838,7 +1838,7 @@
                 "sha256:a4eb26484f2c82589bd9a17c73d32a010b1e29d89f1604cd9bf3a2097b81bb5e",
                 "sha256:ba3a3775974105c221d31141f2c116f4fd65c5ceb0698657a11e9f295ec93fd0"
             ],
-            "markers": "python_version < '4.0' and python_full_version >= '3.6.3'",
+            "markers": "python_version < '4' and python_full_version >= '3.6.3'",
             "version": "==12.6.0"
         },
         "savepagenow": {
@@ -1952,7 +1952,7 @@
                 "sha256:71d14489da58b60ce12fc3ecb823facc59a8b23cd1b58edb97175640350d3a62",
                 "sha256:75abf758717a92a8f53aa96953f0c245c8cedf8e1e4184903db3659b419d4c17"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4.0'",
+            "markers": "python_version >= '3.6' and python_version < '4'",
             "version": "==5.2.1"
         },
         "sniffio": {

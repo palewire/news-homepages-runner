@@ -1,0 +1,36 @@
+name: "Scheduled ETL: Consolidate extracts"
+
+on:
+   schedule:
+     - cron: '0 0 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: extract-consolidate
+  cancel-in-progress: true
+
+jobs:
+  consolidate-extracts:
+    name: Consolidate extracts
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
+
+      - id: install
+        name: Install
+        uses: ./.github/actions/install
+
+      - id: consolidate-extracts
+        name: Consolidate extracts
+        run: pipenv run python -m newshomepages.extract consolidate -o _extracts;
+        shell: bash
+
+      - id: save
+        name: Save artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: extracts
+          path: _extracts
+          if-no-files-found: error
