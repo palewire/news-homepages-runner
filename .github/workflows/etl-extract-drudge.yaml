@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: extract
+  group: extract-drudge
   cancel-in-progress: true
 
 jobs:

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: extract
+  group: extract-lighthouse
   cancel-in-progress: true
 
 jobs:
