@@ -34,3 +34,12 @@ jobs:
           name: extracts
           path: _extracts
           if-no-files-found: error
+
+      - id: upload-latest
+        name: Upload files to archive.org
+        uses: palewire/internet-archive-upload@v1
+        with:
+          access-key: ${{ inputs.access-key }}
+          secret-key: ${{ inputs.secret-key }}
+          identifier: news-homepages-extracts
+          files: ./_extracts/
