@@ -10,10 +10,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-   download-drudge-hyperlinks:
-     name: Download Drudge hyperlinks
-     runs-on: ubuntu-latest
-     steps:
+  download-drudge-hyperlinks:
+    name: Download Drudge hyperlinks
+    runs-on: ubuntu-latest
+    steps:
        - id: checkout
          name: Checkout
          uses: actions/checkout@v3
