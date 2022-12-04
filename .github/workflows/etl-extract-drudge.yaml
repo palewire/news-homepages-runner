@@ -1,0 +1,54 @@
+name: "Scheduled ETL: Extract Drudge sample"
+
+on:
+   schedule:
+     - cron: '30 0 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: extract
+  cancel-in-progress: true
+
+jobs:
+   download-drudge-hyperlinks:
+     name: Download Drudge hyperlinks
+     runs-on: ubuntu-latest
+     steps:
+       - id: checkout
+         name: Checkout
+         uses: actions/checkout@v3
+
+       - id: install
+         name: Install
+         uses: ./.github/actions/install
+
+       - id: cache
+         name: Update cache
+         uses: actions/cache@v3
+         with:
+           path: .cache
+           key: extract-drudge-${{ github.run_id }}
+           restore-keys: |
+             extract-drudge
+
+       - id: download-drudge-hyperlinks
+         name: Download Drudge hyperlink lists
+         run: pipenv run newshomepages-extract hyperlinks --site=drudge --days=90 --output-path=./drudge-hyperlinks-sample.csv;
+         shell: bash
+
+       - id: save
+         name: Save artifact
+         uses: actions/upload-artifact@v3
+         with:
+           name: extracts
+           path: ./drudge-hyperlinks-sample.csv
+           if-no-files-found: error
+
+      - id: upload-to-internet-archive
+        name: Upload files to archive.org
+        uses: palewire/internet-archive-upload@v1
+        with:
+          access-key: ${{ secrets.IA_ACCESS_KEY }}
+          secret-key: ${{ secrets.IA_SECRET_KEY }}
+          identifier: news-homepages-extracts
+          files: drudge-hyperlinks-sample.csv
