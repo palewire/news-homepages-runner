@@ -2,7 +2,7 @@ A task runner for the [homepages.news](https:homepages.news) open-source archive
 
 ## Links
 
-* Source code: [github.com/palewire/news-homepages](https://github.com/palewire/news-homepages)
+- Source code: [github.com/palewire/news-homepages](https://github.com/palewire/news-homepages)
 - Internet Archive: [archive.org/details/news-homepages](https://archive.org/details/news-homepages)
 - Discord: [#news-homepages](https://discord.gg/xkTMPMHM)
 - Twitter: [@newshomepages](https://twitter.com/newshomepages)
