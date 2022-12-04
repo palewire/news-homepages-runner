@@ -25,15 +25,6 @@ runs:
       env:
         IA_COLLECTION: ${{ inputs.collection }}
 
-    - id: upload-latest
-      name: Upload files to archive.org
-      uses: palewire/internet-archive-upload@main
-      with:
-        access-key: ${{ inputs.access-key }}
-        secret-key: ${{ inputs.secret-key }}
-        identifier: latest-homepages
-        files: ./_items/
-
     - id: save-items
       name: Save items artifact
       uses: actions/upload-artifact@v3
@@ -41,3 +32,12 @@ runs:
         name: items
         path: ./_items/*.json
         if-no-files-found: warn
+
+    - id: upload-latest
+      name: Upload files to archive.org
+      uses: palewire/internet-archive-upload@v1
+      with:
+        access-key: ${{ inputs.access-key }}
+        secret-key: ${{ inputs.secret-key }}
+        identifier: latest-homepages
+        files: ./_items/
