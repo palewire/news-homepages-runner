@@ -33,7 +33,7 @@ jobs:
 
       - id: download-lighthouse
         name: Download Lighthouse files
-        run: pipenv run newshomepages-extract lighthouse --days=1 --output-path=./lighthouse-sample.csv;
+        run: pipenv run newshomepages-extract lighthouse --days=30 --output-path=./lighthouse-sample.csv;
         shell: bash
 
       - id: save
