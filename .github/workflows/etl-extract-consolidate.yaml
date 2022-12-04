@@ -39,7 +39,7 @@ jobs:
         name: Upload files to archive.org
         uses: palewire/internet-archive-upload@v1
         with:
-          access-key: ${{ inputs.access-key }}
-          secret-key: ${{ inputs.secret-key }}
+          access-key: ${{ secrets.IA_ACCESS_KEY }}
+          secret-key: ${{ secrets.IA_SECRET_KEY }}
           identifier: news-homepages-extracts
           files: ./_extracts/
