@@ -142,7 +142,7 @@ jobs:
         name: Tweet
         uses: ./.github/actions/tweet
         with:
-          command: country ${{ inputs.country }} -i ./_dist
+          command: country ${{ inputs.country }} -i ./_input/
           consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
           access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
@@ -153,7 +153,7 @@ jobs:
         uses: ./.github/actions/discord
         if: ${{ always() }}
         with:
-          command: country ${{ inputs.country }} -i ./_dist
+          command: country ${{ inputs.country }} -i ./_input/
           bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
 
       - id: telegram
@@ -161,5 +161,5 @@ jobs:
         uses: ./.github/actions/telegram
         if: ${{ always() }}
         with:
-          command: country ${{ inputs.country }} -i ./_dist
+          command: country ${{ inputs.country }} -i ./_input/
           api-key: ${{ secrets.TELEGRAM_API_KEY }}
