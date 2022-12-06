@@ -112,37 +112,3 @@ jobs:
           access-key: ${{ secrets.IA_ACCESS_KEY }}
           secret-key: ${{ secrets.IA_SECRET_KEY }}
           collection: ${{ secrets.IA_COLLECTION }}
-
-  upload:
-    name: Upload
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    needs: [archive]
-    steps:
-      - id: checkout
-        name: Checkout
-        uses: actions/checkout@v3
-
-      - id: install
-        name: Install Python dependencies
-        uses: ./.github/actions/install
-
-      - id: upload-screenshots
-        name: Upload screenshots
-        uses: ./.github/actions/upload
-        with:
-          artifact: screenshots
-          destination: latest-screenshots
-          s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
-
-      - id: upload-items
-        name: Upload items
-        uses: ./.github/actions/upload
-        with:
-          artifact: items
-          destination: extracts/json/
-          s3-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          s3-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          s3-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
