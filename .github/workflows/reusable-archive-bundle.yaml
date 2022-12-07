@@ -158,7 +158,7 @@ jobs:
         name: Tweet
         uses: ./.github/actions/tweet
         with:
-          command: bundle ${{ inputs.bundle }} -i ./_input/
+          command: bundle ${{ inputs.bundle }} -i ./_dist/
           consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
           access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
