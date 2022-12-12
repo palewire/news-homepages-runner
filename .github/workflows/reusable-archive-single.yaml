@@ -36,6 +36,14 @@ jobs:
         with:
           source: ${{ inputs.source }}
 
+      - id: screenshot-full-page
+        name: Screenshot (full page)
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/screenshot-full-page
+        with:
+          source: ${{ inputs.source }}
+
       - id: hyperlinks
         name: Hyperlinks
         if: ${{ always() }}
@@ -67,6 +75,14 @@ jobs:
         if: ${{ always() }}
         timeout-minutes: 10
         uses: ./.github/actions/lighthouse
+        with:
+          source: ${{ inputs.source }}
+
+      - id: html
+        name: HTML
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/html
         with:
           source: ${{ inputs.source }}
 
