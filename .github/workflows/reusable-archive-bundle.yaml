@@ -168,7 +168,7 @@ jobs:
         name: Toot
         uses: ./.github/actions/toot
         with:
-          command: bundle ${{ inputs.source }} -i ./_dist
+          command: bundle ${{ inputs.bundle }} -i ./_dist
           client-key: ${{ secrets.MASTODON_CLIENT_KEY }}
           client-secret: ${{ secrets.MASTODON_CLIENT_SECRET }}
           access-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
