@@ -163,3 +163,12 @@ jobs:
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
           access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
           access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+
+      - id: toot
+        name: Toot
+        uses: ./.github/actions/toot
+        with:
+          command: bundle ${{ inputs.source }} -i ./_dist
+          client-key: ${{ secrets.MASTODON_CLIENT_KEY }}
+          client-secret: ${{ secrets.MASTODON_CLIENT_SECRET }}
+          access-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
