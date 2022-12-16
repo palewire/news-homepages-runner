@@ -1,0 +1,28 @@
+name: Toot
+description: Post to Mastodon
+
+inputs:
+  command:
+    description: The command to run
+    required: true
+  client-key:
+    description: The Mastodon client key
+    required: true
+  client-secret:
+    description: The Mastodon client secret
+    required: true
+  access-token:
+    description: The Mastodon access token
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: toot
+      name: Toot
+      run: pipenv run newshomepages-toot ${{ inputs.command }}
+      shell: bash
+      env:
+        MASTODON_CLIENT_KEY: ${{ inputs.client-key }}
+        MASTODON_CLIENT_SECRET: ${{ inputs.client-secret }}
+        MASTODON_ACCESS_TOKEN: ${{ inputs.access-token }}
