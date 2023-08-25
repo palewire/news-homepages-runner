@@ -138,16 +138,6 @@ jobs:
         with:
           command: jpg -i ./_input/
 
-      - id: tweet
-        name: Tweet
-        uses: ./.github/actions/tweet
-        with:
-          command: country ${{ inputs.country }} -i ./_input/
-          consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
-          consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-          access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
-          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-
       - id: discord
         name: Discord
         uses: ./.github/actions/discord
