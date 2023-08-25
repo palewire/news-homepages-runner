@@ -41,16 +41,6 @@ jobs:
           name: screenshots
           path: ./_dist
 
-      - id: tweet
-        name: Tweet
-        uses: ./.github/actions/tweet
-        with:
-          command: single ${{ inputs.source }} -i ./_dist
-          consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
-          consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-          access-token-key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
-          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-
       - id: toot
         name: Toot
         uses: ./.github/actions/toot
