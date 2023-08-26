@@ -28,7 +28,7 @@ jobs:
     name: Archive
     runs-on: ubuntu-latest
     needs: sources
-    timeout-minutes: 60
+    timeout-minutes: 80
     continue-on-error: true
     strategy:
       fail-fast: false
@@ -110,7 +110,7 @@ jobs:
       - id: archive
         name: Archive
         if: ${{ always() }}
-        timeout-minutes: 10
+        timeout-minutes: 20
         uses: ./.github/actions/archive
         with:
           source: ${{ matrix.source }}
