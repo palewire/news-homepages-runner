@@ -70,6 +70,14 @@ jobs:
           access-key: ${{ secrets.IA_ACCESS_KEY }}
           secret-key: ${{ secrets.IA_SECRET_KEY }}
 
+      - id: robotstxt
+        name: robots.txt
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/robotstxt
+        with:
+          source: ${{ inputs.source }}
+
       - id: lighthouse
         name: Lighthouse
         if: ${{ always() }}

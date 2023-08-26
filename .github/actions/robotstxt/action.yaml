@@ -1,0 +1,23 @@
+name: robots.txt
+description: Download robots.txt from a site
+
+inputs:
+  source:
+    description: The source to archive
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - id: robots-txt
+      name: Download robots.txt
+      run: pipenv run newshomepages-robotstxt ${{ inputs.source }} -o _dist
+      shell: bash
+
+    - id: save-robots-txt
+      name: Save robots.txt artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: robotstxt
+        path: ./_dist/${{ inputs.source }}.robots.txt
+        if-no-files-found: warn
