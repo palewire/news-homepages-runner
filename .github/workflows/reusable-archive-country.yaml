@@ -89,7 +89,7 @@ jobs:
         timeout-minutes: 5
         uses: ./.github/actions/robotstxt
         with:
-          source: ${{ inputs.source }}
+          source: ${{ matrix.source }}
 
       - id: lighthouse
         name: Lighthouse
