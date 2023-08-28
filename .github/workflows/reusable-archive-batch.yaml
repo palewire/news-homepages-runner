@@ -107,13 +107,13 @@ jobs:
         with:
           source: ${{ matrix.source }}
 
-      - id: html
-        name: HTML
-        if: ${{ always() }}
-        timeout-minutes: 5
-        uses: ./.github/actions/html
-        with:
-          source: ${{ matrix.source }}
+      # - id: html
+      #   name: HTML
+      #   if: ${{ always() }}
+      #   timeout-minutes: 5
+      #   uses: ./.github/actions/html
+      #   with:
+      #     source: ${{ matrix.source }}
 
       - id: archive
         name: Archive
