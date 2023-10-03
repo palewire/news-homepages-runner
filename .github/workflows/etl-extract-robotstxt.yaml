@@ -24,7 +24,7 @@ jobs:
 
        - id: download-robotstxt
          name: Download robots.txt files
-         run: pipenv run newshomepages-extract robotstxt --latest --output-path=./robotstxt-sample.csv;
+         run: pipenv run newshomepages-extract robotstxt --latest --no-cache --verbose --output-path=./robotstxt-sample.csv;
          shell: bash
 
        - id: save
