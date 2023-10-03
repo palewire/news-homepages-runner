@@ -11,7 +11,7 @@ runs:
   steps:
     - id: robots-txt
       name: Download robots.txt
-      run: pipenv run newshomepages-robotstxt ${{ inputs.source }} -o _dist
+      run: pipenv run newshomepages-robotstxt ${{ inputs.source }} -o _dist --verbose
       shell: bash
 
     - id: save-robots-txt
