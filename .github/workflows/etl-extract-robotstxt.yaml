@@ -22,15 +22,6 @@ jobs:
          name: Install
          uses: ./.github/actions/install
 
-       - id: cache
-         name: Update cache
-         uses: actions/cache@v3
-         with:
-           path: ~/.cache
-           key: extract-robotstxt-${{ github.run_id }}
-           restore-keys: |
-             extract-robotstxt
-
        - id: download-robotstxt
          name: Download robots.txt files
          run: pipenv run newshomepages-extract robotstxt --latest --output-path=./robotstxt-sample.csv;
