@@ -91,6 +91,14 @@ jobs:
           access-key: ${{ secrets.IA_ACCESS_KEY }}
           secret-key: ${{ secrets.IA_SECRET_KEY }}
 
+      - id: adstxt
+        name: ads.txt
+        if: ${{ always() }}
+        timeout-minutes: 5
+        uses: ./.github/actions/adstxt
+        with:
+          source: ${{ matrix.source }}
+
       - id: robotstxt
         name: robots.txt
         if: ${{ always() }}
