@@ -76,7 +76,7 @@ jobs:
         timeout-minutes: 5
         uses: ./.github/actions/adstxt
         with:
-          source: ${{ matrix.source }}
+          source: ${{ inputs.source }}
 
       - id: robotstxt
         name: robots.txt
