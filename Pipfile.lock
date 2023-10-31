@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8801836a6a3d9fa76758423938c0e115797c38e30a48a4a41c6e2bf77c998e1f"
+            "sha256": "61dcf32d8c75d8ec19faf8c215dac19fa13959cb140a46275391e8f1f8609921"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -154,7 +154,7 @@
                 "sha256:492bbc69dca35d12daac71c4db1bfff0c876c00ef4a2ffacce226d4638eb72da",
                 "sha256:bd2520ca0d9d7d12694a53d44ac482d181b4ec1888909b035a3dbf40d0f57d4a"
             ],
-            "markers": "python_full_version >= '3.6.0'",
+            "markers": "python_version >= '3.6'",
             "version": "==4.12.2"
         },
         "blis": {
@@ -318,7 +318,7 @@
                 "sha256:f6a02a3c7950cafaadcd46a226ad9e12fc9744652cc69f9e5534f98b47f3bbcf",
                 "sha256:fe81b35c33772e56f4b6cf62cf4aedc1762ef7162a31e6ac7fe5e40d0149eb67"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==3.3.1"
         },
         "click": {
@@ -426,7 +426,7 @@
                 "sha256:4560f70f2eddba7e83370ecebd237ac09fbb4980dc66507482b0c0e5b8f76b9c",
                 "sha256:9da4679fc3cb10c64b388284700dc998663e0e57328283bbfcfc2525ec5960a6"
             ],
-            "markers": "python_full_version >= '3.8.0'",
+            "markers": "python_version >= '3.8'",
             "version": "==2.3.2"
         },
         "docopt": {
@@ -445,11 +445,11 @@
         },
         "filelock": {
             "hashes": [
-                "sha256:63c6052c82a1a24c873a549fbd39a26982e8f35a3016da231ead11a5be9dad44",
-                "sha256:a552f4fde758f4eab33191e9548f671970f8b06d436d31388c9aa1e5861a710f"
+                "sha256:521f5f56c50f8426f5e03ad3b281b490a87ef15bc6c526f168290f0c7148d44e",
+                "sha256:57dbda9b35157b05fb3e58ee91448612eb674172fab98ee235ccb0b5bee19a1c"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==3.13.0"
+            "version": "==3.13.1"
         },
         "frozenlist": {
             "hashes": [
@@ -899,11 +899,11 @@
         },
         "newshomepages": {
             "hashes": [
-                "sha256:359385b270f9ac6a3e439615e049cc7720e43fbc4f6455fb3e91886cd0e24e52",
-                "sha256:5a2cbc50d50a05ae3875ae7fbef4087c09481ce365a7d486ea36d1b6b167148e"
+                "sha256:3fd238e4e341cbfbb3a50e196da42d8f6726faf15b9d6ad6c05e215d13ec5afb",
+                "sha256:dfdc767f8806b475dcdf75026ea980fb153aeffb055f3af2d31849c58128724e"
             ],
             "index": "pypi",
-            "version": "==0.0.75"
+            "version": "==0.0.76"
         },
         "numpy": {
             "hashes": [
@@ -1368,7 +1368,7 @@
                 "sha256:2b38e2fe9ca72c9a00170a1a2d20c63c790d0e10ef1fe35eba76e1e7b1d7d245",
                 "sha256:5c14d22737e6d5084ef4771b62d5d4363165b403455a30a1c8ca39dc7b644bef"
             ],
-            "markers": "python_full_version >= '3.7.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==13.6.0"
         },
         "schema": {
