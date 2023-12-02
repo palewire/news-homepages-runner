@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        source: [ft,]
+        source: [bbc,business,ft,guardian,nytimes,telegraph,thetimes,washingtonpost,wsj]
     steps:
       - id: checkout
         name: Checkout
