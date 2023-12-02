@@ -1,0 +1,49 @@
+name: 'Slack bot: Financial Times'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * *"
+
+jobs:
+  archive:
+    name: Archive
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        source: [ft,]
+    steps:
+      - id: checkout
+        name: Checkout
+        timeout-minutes: 5
+        uses: actions/checkout@v4
+
+      - id: install
+        timeout-minutes: 5
+        name: Install Python dependencies
+        uses: ./.github/actions/install
+
+      - id: mk-dist-dir
+        name: Create distribution directory
+        run: mkdir _dist
+        shell: bash
+
+      - id: screenshot-cropped
+        name: Screenshot (cropped)
+        timeout-minutes: 5
+        uses: ./.github/actions/screenshot-cropped
+        with:
+          source: ${{ matrix.source }}
+
+      - id: post-to-slack
+        name: Post to Slack
+        timeout-minutes: 20
+        run: pipenv run newshomepages-slack -i _dist -v
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.FT_SLACK_WEBHOOK_URL }}
+          IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
+          IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
+          IA_COLLECTION: ${{ secrets.IA_COLLECTION }}
