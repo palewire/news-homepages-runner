@@ -40,7 +40,6 @@ jobs:
 
       - id: post-to-slack
         name: Post to Slack
-        timeout-minutes: 20
         run: pipenv run newshomepages-slack ${{ matrix.source }} -i _dist -v
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.FT_SLACK_WEBHOOK_URL }}
