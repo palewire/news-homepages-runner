@@ -3,7 +3,7 @@ name: 'Slack bot: Financial Times'
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 10 * * *"
+    - cron: "0 0,6,12,18 * * *"
 
 jobs:
   archive:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        source: [bbc,business,ft,guardian,nytimes,telegraph,thetimes,washingtonpost,wsj]
+        source: [bbc, business, ft, guardian, nytimes, telegraph, thetimes, washingtonpost, wsj]
     steps:
       - id: checkout
         name: Checkout
