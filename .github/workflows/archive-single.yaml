@@ -49,11 +49,3 @@ jobs:
           client-key: ${{ secrets.MASTODON_CLIENT_KEY }}
           client-secret: ${{ secrets.MASTODON_CLIENT_SECRET }}
           access-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
-
-      - id: telegram
-        name: Telegram
-        uses: ./.github/actions/telegram
-        if: ${{ always() }}
-        with:
-          command: single ${{ inputs.source }} -i ./_dist
-          api-key: ${{ secrets.TELEGRAM_API_KEY }}
