@@ -153,11 +153,3 @@ jobs:
         uses: ./.github/actions/mosaic
         with:
           command: jpg -i ./_input/
-
-      - id: telegram
-        name: Telegram
-        uses: ./.github/actions/telegram
-        if: ${{ always() }}
-        with:
-          command: country ${{ inputs.country }} -i ./_input/
-          api-key: ${{ secrets.TELEGRAM_API_KEY }}
