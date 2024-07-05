@@ -13,6 +13,8 @@ runs:
       name: Take full-page screenshot
       run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-screenshot ${{ inputs.source }} --full-page -o _dist --verbose
       shell: bash
+      env:
+        PW_TEST_SCREENSHOT_NO_FONTS_READY: 1
 
     - id: save-full-page-screenshot
       name: Save full-page screenshot artifact
