@@ -29,14 +29,6 @@ jobs:
         run: pipenv run newshomepages-analyze drudge-hyperlinks -o ./
         shell: bash
 
-      - id: save
-        name: Save artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: extracts
-          path: ./drudge-hyperlinks-analysis.csv
-          if-no-files-found: error
-
       - id: upload-to-internet-archive
         name: Upload files to archive.org
         uses: palewire/internet-archive-upload@v1
@@ -70,14 +62,6 @@ jobs:
         name: Analyze Drudge entities
         run: pipenv run newshomepages-analyze drudge-entities -o ./
         shell: bash
-
-      - id: save
-        name: Save artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: extracts
-          path: ./drudge-entities-analysis.csv
-          if-no-files-found: error
 
       - id: upload-to-internet-archive
         name: Upload files to archive.org
