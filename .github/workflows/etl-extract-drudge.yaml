@@ -24,7 +24,7 @@ jobs:
 
        - id: cache
          name: Update cache
-         uses: actions/cache@v3
+         uses: actions/cache@v4
          with:
            path: ~/.cache
            key: extract-drudge-${{ github.run_id }}
@@ -35,14 +35,6 @@ jobs:
          name: Download Drudge hyperlink lists
          run: pipenv run newshomepages-extract hyperlinks --site=drudge --days=365 --output-path=./drudge-hyperlinks-sample.csv;
          shell: bash
-
-       - id: save
-         name: Save artifact
-         uses: actions/upload-artifact@v4
-         with:
-           name: extracts
-           path: ./drudge-hyperlinks-sample.csv
-           if-no-files-found: error
 
        - id: upload-to-internet-archive
          name: Upload files to archive.org
