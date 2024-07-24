@@ -33,7 +33,7 @@ jobs:
 
        - id: download-drudge-hyperlinks
          name: Download Drudge hyperlink lists
-         run: pipenv run newshomepages-extract hyperlinks --site=drudge --days=365 --output-path=./drudge-hyperlinks-sample.csv;
+         run: pipenv run newshomepages-extract hyperlinks --site=drudge --days=90 --output-path=./drudge-hyperlinks-sample.csv;
          shell: bash
 
        - id: upload-to-internet-archive
