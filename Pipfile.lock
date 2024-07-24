@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6bc9c22fff92cd23f456dc6f713e369c618c63ad202ab93dde6e475fee05c76c"
+            "sha256": "57b9545a1ebffcdf511ad9840da925d844f6559c5503646ba5eaf471f5e2e018"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -377,11 +377,11 @@
         },
         "huggingface-hub": {
             "hashes": [
-                "sha256:6915e34c7b1282b0f7c2387c12db21003b79889f1dad57da0434ecd10f3293a8",
-                "sha256:d3a623d0f2cbb9399299aefc85e3423fa2689f18ab9b6e1aa0f95d1793889f30"
+                "sha256:92be892405d2f6a7a8479016f9a5662354f202b2c6c1ff499609621aed1fae10",
+                "sha256:abdf3244d3a274c4b1fbc5c4a1ef700032b3f60ba93cc63e4f036fd082aa2805"
             ],
             "markers": "python_full_version >= '3.8.0'",
-            "version": "==0.24.1"
+            "version": "==0.24.2"
         },
         "idna": {
             "hashes": [
@@ -694,11 +694,11 @@
         },
         "newshomepages": {
             "hashes": [
-                "sha256:326f27b04dd0deb6d1a50652f13152c5bc973dee5fa3db6e7d0b40a5a3f0e77c",
-                "sha256:cd5794667c8289dc44a6e7b33af02ab6589f0bf75bbd3d01164266c4f9d0a3a1"
+                "sha256:1b582c25b16b66996312f74d94f040789b678fbb8dc33922b77f311d4cb922e2",
+                "sha256:a2e77c4b9ea8e8324d052c7aa7aa8d7f84c216791115df999d8a9cfcb6b460e9"
             ],
             "index": "pypi",
-            "version": "==0.0.100"
+            "version": "==0.0.101"
         },
         "numpy": {
             "hashes": [
