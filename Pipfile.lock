@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d6ff70d12d47170cd81d4b03c5900900adc13e0f204d519a6854dc3288121a21"
+            "sha256": "1012d644c24490b00399faa865aed98c6b92e581802f2b4e5b4884c57d64f579"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -377,11 +377,11 @@
         },
         "huggingface-hub": {
             "hashes": [
-                "sha256:92be892405d2f6a7a8479016f9a5662354f202b2c6c1ff499609621aed1fae10",
-                "sha256:abdf3244d3a274c4b1fbc5c4a1ef700032b3f60ba93cc63e4f036fd082aa2805"
+                "sha256:7b45d6744dd53ce9cbf9880957de00e9d10a9ae837f1c9b7255fc8fa4e8264f3",
+                "sha256:d93fb63b1f1a919a22ce91a14518974e81fc4610bf344dfe7572343ce8d3aced"
             ],
             "markers": "python_full_version >= '3.8.0'",
-            "version": "==0.24.2"
+            "version": "==0.24.5"
         },
         "idna": {
             "hashes": [
@@ -694,11 +694,11 @@
         },
         "newshomepages": {
             "hashes": [
-                "sha256:8b956f324e1f56ede162c8098e2f970a3df3d6ac8ed9fdca4caa1981f47a0064",
-                "sha256:b167d0c03a142e0f8e107ef3db5307dfd341a6bc579605d49e3f32d60367c745"
+                "sha256:18389a97a5aad816c972b87e9736d553c389116b6a751d6b41a95fa03bf59711",
+                "sha256:cdcc48ce80a2109b4a5c93734e36de564f99d28074bf0ddef3f9b971982fda22"
             ],
             "index": "pypi",
-            "version": "==0.0.102"
+            "version": "==0.0.103"
         },
         "numpy": {
             "hashes": [
@@ -1243,11 +1243,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:032d42ee9fb536e33087fb66cac5f840eb9391ed05637b3f2a76a7c8fb477936",
-                "sha256:33874fdc59b3188304b2e7c80d9029097ea31627180896fb549c578ceb8a0855"
+                "sha256:5a03e1860cf56bb6ef48ce186b0e557fdba433237481a9a625176c2831be15d1",
+                "sha256:8d243eff56d095e5817f796ede6ae32941278f542e0f941867cc05ae52b162ec"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==71.1.0"
+            "version": "==72.1.0"
         },
         "shellingham": {
             "hashes": [

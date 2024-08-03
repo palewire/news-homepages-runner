@@ -1,0 +1,37 @@
+name: "Scheduled ETL: Extract status report"
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: extract-status-report
+  cancel-in-progress: true
+
+jobs:
+  extract:
+    name: Extract status report
+    runs-on: ubuntu-latest
+    steps:
+       - id: checkout
+         name: Checkout
+         uses: actions/checkout@v4
+
+       - id: install
+         name: Install
+         uses: ./.github/actions/install
+
+       - id: extract-status-report
+         name: Extract status report
+         run: pipenv run newshomepages-extract status-report;
+         shell: bash
+
+       - id: upload-to-internet-archive
+         name: Upload files to archive.org
+         uses: palewire/internet-archive-upload@v1
+         with:
+           access-key: ${{ secrets.IA_ACCESS_KEY }}
+           secret-key: ${{ secrets.IA_SECRET_KEY }}
+           identifier: news-homepages-extracts
+           files: status-report.json
