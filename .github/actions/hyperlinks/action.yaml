@@ -11,7 +11,7 @@ runs:
   steps:
     - id: get-hyperlinks
       name: Get hyperlinks
-      run: pipenv run newshomepages-hyperlinks ${{ inputs.source }} -o _dist
+      run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-hyperlinks ${{ inputs.source }} -o _dist --verbose
       shell: bash
 
     - id: save-hyperlinks
