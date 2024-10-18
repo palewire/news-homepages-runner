@@ -2,8 +2,8 @@ name: 'Scheduled Archive: All sites (Batch 8)'
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "30 1,13 * * *"
+  # schedule:
+  #   - cron: "30 1,13 * * *"
 
 jobs:
   archive-batch:
