@@ -13,11 +13,3 @@ runs:
       name: Download ads.txt
       run: pipenv run newshomepages-adstxt ${{ inputs.source }} -o _dist --verbose
       shell: bash
-
-    - id: save-ads-txt
-      name: Save ads.txt artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: adstxt
-        path: ./_dist/${{ inputs.source }}.ads.txt
-        if-no-files-found: warn

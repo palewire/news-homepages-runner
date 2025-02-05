@@ -27,14 +27,6 @@ jobs:
         run: pipenv run python -m newshomepages.extract consolidate -o _extracts;
         shell: bash
 
-      - id: save
-        name: Save artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: extracts
-          path: _extracts
-          if-no-files-found: error
-
       - id: upload-to-internet-archive
         name: Upload files to archive.org
         uses: palewire/internet-archive-upload@v1

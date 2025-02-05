@@ -13,11 +13,3 @@ runs:
       name: Get hyperlinks
       run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pipenv run newshomepages-hyperlinks ${{ inputs.source }} -o _dist --verbose
       shell: bash
-
-    - id: save-hyperlinks
-      name: Save hyperlinks artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: hyperlinks
-        path: ./_dist/${{ inputs.source }}.hyperlinks.json
-        if-no-files-found: warn

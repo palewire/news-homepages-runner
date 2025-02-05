@@ -27,11 +27,3 @@ runs:
       name: Move Lighthouse report
       run: mv ${{ steps.lighthouse-audit.outputs.resultsPath }}/manifest.json ./_dist/${{ inputs.source }}.lighthouse.json
       shell: bash
-
-    - id: save-lighthouse
-      name: Save Lighthouse artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: lighthouse
-        path: ./_dist/${{ inputs.source }}.lighthouse.json
-        if-no-files-found: warn

@@ -15,11 +15,3 @@ runs:
       shell: bash
       env:
         PW_TEST_SCREENSHOT_NO_FONTS_READY: 1
-
-    - id: save-cropped-screenshot
-      name: Save cropped screenshot artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: screenshots
-        path: ./_dist/${{ inputs.source }}.jpg
-        if-no-files-found: warn

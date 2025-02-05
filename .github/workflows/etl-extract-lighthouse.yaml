@@ -36,14 +36,6 @@ jobs:
         run: pipenv run newshomepages-extract lighthouse --days=7 --output-path=./lighthouse-sample.csv;
         shell: bash
 
-      - id: save
-        name: Save artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: extracts
-          path: ./lighthouse-sample.csv
-          if-no-files-found: error
-
       - id: upload-to-internet-archive
         name: Upload files to archive.org
         uses: palewire/internet-archive-upload@v1

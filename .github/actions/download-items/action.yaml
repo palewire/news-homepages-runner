@@ -25,14 +25,6 @@ runs:
       env:
         IA_COLLECTION: ${{ inputs.collection }}
 
-    - id: save-items
-      name: Save items artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: items
-        path: ./_items/*.json
-        if-no-files-found: warn
-
     - id: upload-latest
       name: Upload files to archive.org
       uses: palewire/internet-archive-upload@v1
