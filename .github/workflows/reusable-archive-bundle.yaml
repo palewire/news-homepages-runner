@@ -136,37 +136,3 @@ jobs:
           access-key: ${{ secrets.IA_ACCESS_KEY }}
           secret-key: ${{ secrets.IA_SECRET_KEY }}
           collection: ${{ secrets.IA_COLLECTION }}
-
-  post:
-    name: Post
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    needs: archive
-    steps:
-      - id: checkout
-        name: Checkout
-        uses: actions/checkout@v3
-
-      - id: install
-        name: Install Python dependencies
-        uses: ./.github/actions/install
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: screenshots
-          path: ./_input
-
-      - id: mosaic
-        name: Mosaic
-        uses: ./.github/actions/mosaic
-        with:
-          command: jpg -i ./_input/
-
-      - id: toot
-        name: Toot
-        uses: ./.github/actions/toot
-        with:
-          command: bundle ${{ inputs.bundle }} -i ./_dist
-          client-key: ${{ secrets.MASTODON_CLIENT_KEY }}
-          client-secret: ${{ secrets.MASTODON_CLIENT_SECRET }}
-          access-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
