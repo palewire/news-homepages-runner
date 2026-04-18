@@ -22,14 +22,6 @@ jobs:
         name: Install
         uses: ./.github/actions/install
 
-      - id: cache-items
-        name: Restore downloaded item JSONs
-        uses: actions/cache@v5
-        with:
-          path: _extracts/latest-homepages
-          key: consolidate-items-${{ github.run_id }}
-          restore-keys: consolidate-items-
-
       - id: consolidate-extracts
         name: Consolidate extracts
         run: pipenv run python -m newshomepages.extract consolidate -o _extracts;
