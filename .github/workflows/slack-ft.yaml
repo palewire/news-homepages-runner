@@ -19,7 +19,7 @@ jobs:
       - id: checkout
         name: Checkout
         timeout-minutes: 5
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - id: install
         timeout-minutes: 5
