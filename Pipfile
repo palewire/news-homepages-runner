@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-newshomepages = "==0.0.117"
+newshomepages = "==0.0.118"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.11"
