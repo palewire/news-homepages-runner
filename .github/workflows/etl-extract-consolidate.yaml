@@ -2,7 +2,7 @@ name: "Scheduled ETL: Consolidate extracts"
 
 on:
   schedule:
-    - cron: '0 */8 * * *'
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -21,6 +21,14 @@ jobs:
       - id: install
         name: Install
         uses: ./.github/actions/install
+
+      - id: cache-items
+        name: Restore downloaded item JSONs
+        uses: actions/cache@v4
+        with:
+          path: _extracts/latest-homepages
+          key: consolidate-items-${{ github.run_id }}
+          restore-keys: consolidate-items-
 
       - id: consolidate-extracts
         name: Consolidate extracts
