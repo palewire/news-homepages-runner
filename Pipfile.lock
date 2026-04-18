@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6bdcdec775c4f466e7dcccf75e7dc6290e645ef77cf73b2562e55deb4cd75e9c"
+            "sha256": "302f5269bba65274c563960469832974c0b60cd842f13c6f914b4f5f9b0caeb7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -703,12 +703,12 @@
         },
         "newshomepages": {
             "hashes": [
-                "sha256:44444e6e7ec52a2bb9c444fc003181e0d0b134b19129694079da0910930bf376",
-                "sha256:6eca7a40288a18f669e8c87b49f3c05ce2375d3ec980306665bb9e5915c7dd18"
+                "sha256:049abcedacef21dc69cbc4c2af6e5defc5080337ca15ef255718ff4e16f278ec",
+                "sha256:70bdd59f30126dc31aae7313082779beacd338f69023ada702ca97410677f5ff"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.11'",
-            "version": "==0.0.118"
+            "version": "==0.0.119"
         },
         "numpy": {
             "hashes": [
