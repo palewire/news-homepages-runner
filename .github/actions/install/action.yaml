@@ -2,14 +2,14 @@ name: Install
 description: Install Python and dependencies
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - id: install-python
       name: Install Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
-        cache: 'pipenv'
+        python-version: "3.11"
+        cache: "pipenv"
 
     - id: install-pipenv
       name: Install pipenv
