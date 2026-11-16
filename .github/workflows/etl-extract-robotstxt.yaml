@@ -12,7 +12,7 @@ concurrency:
 jobs:
   download:
     name: Download robots.txt files
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
        - id: checkout
          name: Checkout

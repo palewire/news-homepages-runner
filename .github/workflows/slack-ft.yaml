@@ -8,7 +8,7 @@ on:
 jobs:
   archive:
     name: Archive
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     continue-on-error: true
     strategy:

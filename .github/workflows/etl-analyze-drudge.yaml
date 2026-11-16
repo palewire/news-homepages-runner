@@ -12,7 +12,7 @@ concurrency:
 jobs:
   hyperlinks:
     name: Process hyperlinks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
       - id: checkout
@@ -39,7 +39,7 @@ jobs:
 
   entities:
     name: Extract entities
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: hyperlinks
     timeout-minutes: 120
     steps:
